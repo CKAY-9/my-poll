@@ -1,0 +1,13 @@
+:root {
+	--900: 0, 0, 0;
+	--800: 14, 14, 18;
+	--700: 20, 20, 25;
+	
+	--text: 255, 255, 255;
+}
+
+body {
+	color: rgb(var(--text));
+	background-color: rgb(var(--900));
+	margin: 0;
+}
