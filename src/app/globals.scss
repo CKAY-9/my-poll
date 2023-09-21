@@ -1,7 +1,7 @@
 :root {
 	--900: 0, 0, 0;
-	--800: 14, 14, 18;
-	--700: 20, 20, 25;
+	--800: 20, 20, 25;
+	--700: 25, 25, 30;
 	
 	--text: 255, 255, 255;
 }
@@ -10,4 +10,67 @@ body {
 	color: rgb(var(--text));
 	background-color: rgb(var(--900));
 	margin: 0;
+}
+
+.container {
+	margin: 10rem 15rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.landing {
+	background-color: rgb(var(--800));
+	padding: 2rem 6rem;
+	border-radius: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	a {
+		padding: 1rem 2rem;
+		background-color: rgb(0, 100, 200);
+		border-radius: 2rem;
+		transition: 0.5s ease all;
+		color: rgb(var(--text));
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 900;
+		text-align: center;
+
+		&:hover {
+			border-radius: 1rem;
+		}
+	}
+}
+
+input, button {
+	background-color: rgb(var(--800));
+	color: rgb(var(--text));
+	padding: 0.5rem;
+	border: none;
+
+	&:focus {
+		outline: none;
+	}
+
+	&[type="submit"]:hover {
+		cursor: pointer;
+	}
+}
+
+button {
+	width: fit-content;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: 900;
+	padding: 1rem 2rem;
+	border-radius: 2rem;
+	transition: 0.5s ease all;
+
+	&:hover {
+		border-radius: 1rem;
+		cursor: pointer;
+	}
 }
