@@ -1,9 +1,14 @@
 :root {
 	--900: 0, 0, 0;
-	--800: 20, 20, 25;
-	--700: 25, 25, 30;
+	--800: 20, 20, 20;
+	--700: 25, 25, 25;
+	--accent: 0, 100, 200;
 	
 	--text: 255, 255, 255;
+}
+
+* {
+	font-family: "Inter", sans-serif;
 }
 
 body {
@@ -30,7 +35,7 @@ body {
 
 	a {
 		padding: 1rem 2rem;
-		background-color: rgb(0, 100, 200);
+		background-color: rgb(var(--accent));
 		border-radius: 2rem;
 		transition: 0.5s ease all;
 		color: rgb(var(--text));
@@ -41,6 +46,7 @@ body {
 
 		&:hover {
 			border-radius: 1rem;
+			text-decoration: none;
 		}
 	}
 }
@@ -60,6 +66,15 @@ input, button {
 	}
 }
 
+a {
+	color: rgb(var(--accent));
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
 button {
 	width: fit-content;
 	text-decoration: none;
@@ -72,5 +87,23 @@ button {
 	&:hover {
 		border-radius: 1rem;
 		cursor: pointer;
+	}
+}
+
+.polls {
+	display: grid;
+	gap: 1rem;
+
+	.poll {
+		background-color: rgb(var(--800));
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+		border-radius: 1rem;
+		color: inherit;
+		
+		&:hover {
+			text-decoration: none;
+		}
 	}
 }

@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @unique @default(autoincrement())
+  username      String
+  password      String
+  joined        DateTime @default(now())
+  created_polls String[]
+  token         String
+}
+
+model Poll {
+  title            String
+  description      String   @default("No description provided.")
+  id               Int      @id @unique @default(autoincrement())
+  options          String[]
+  optionVotes      Int[]    @default([])
+  owner            Int?
+  close_at         DateTime
+  requires_account Boolean  @default(false)
+  unlisted         Boolean  @default(true)
+}
