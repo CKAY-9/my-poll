@@ -1,0 +1,21 @@
+.oauth {
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 250px;
+    color: rgb(255, 255, 255);
+    font-weight: 900;
+    text-transform: uppercase;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    img {
+        width: 2rem;
+        height: 2rem;
+    }
+}

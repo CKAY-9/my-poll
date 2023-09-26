@@ -30,7 +30,7 @@ const Home = async () => {
 				<div className="landing">
 					<h1>Account</h1>
 					<span style={{"opacity": "0.5", "marginBottom": "1rem", "textAlign": "center"}}>Having an account gives you access to more features</span>
-					<Link href="/user/auth">Login/Register</Link>
+					<Link href="/user/auth">Login</Link>
 				</div>
 				<div className="landing">
 					<h1>About</h1>
