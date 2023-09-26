@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import PollClient from "./client";
 import Link from "next/link";
 import { Metadata } from "next";
+import style from "./poll.module.scss";
 
 export const generateMetadata = async ({params}: {
     params: {
@@ -35,19 +36,22 @@ const PollPage = async ({params}: {
         redirect("/");
     }
 
+    const isExpired = info.close_at.getTime() < new Date().getTime();
+
     return (
         <>
             <main className="container" style={{
                 "alignItems": "center",
                 "justifyContent": "center",
                 "height": "100vh",
-                "margin": "0"
+                "margin": "0",
             }}>
-                <div className="poll">
-                    <Link href="/">Home</Link>
+                <Link href="/">Home</Link>
+                <div className={style.poll}>
+                    {isExpired && <span style={{"textTransform": "uppercase", "fontWeight": "900"}}>This poll has expired!</span>}
                     <h1>{info.title}</h1>     
                     <span>{info.description}</span>
-                    <PollClient poll={info}></PollClient> 
+                    <PollClient poll={info} expired={isExpired}></PollClient> 
                 </div>
             </main>
         </>

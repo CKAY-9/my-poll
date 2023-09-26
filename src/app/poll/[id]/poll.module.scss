@@ -1,0 +1,20 @@
+.poll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	background-color: rgb(var(--800));
+	padding: 2rem;
+	border-radius: 2rem;
+	gap: 1rem;
+    aspect-ratio: 1;
+
+	button {
+		background-color: rgb(var(--700));
+	}
+}
+
+.option {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}

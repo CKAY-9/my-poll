@@ -1,3 +1,4 @@
+import { getTotalVoteCount } from "@/utils/poll";
 import { getAllPublicPolls } from "@/utils/prisma";
 import { Poll } from "@prisma/client";
 import { Metadata } from "next";
@@ -22,11 +23,18 @@ const AllPollsPage = async () => {
                     ? <span>There are no public polls currently available! <Link href="/poll/create">Create one</Link></span>
                     : <div className="polls">
                         {polls.map((poll: Poll, index: number) => {
+                            const date = new Date();
+                            const isExpired = poll.close_at.getTime() < date.getTime();
+
+                            if (isExpired) {
+                                return (<></>);
+                            }
+
                             return (
                                 <Link href={`/poll/${poll.id}`} key={index} className="poll">
                                     <h2>{poll.title}</h2>
                                     <span>Description: {poll.description}</span>
-                                    <span>Vote Count: {poll.optionVotes.length}</span>
+                                    <span>Vote Count: {getTotalVoteCount(poll.optionVotes)}</span>
                                 </Link>
                             );
                         })}

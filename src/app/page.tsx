@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const generateMetadata = async (): Promise<Metadata> => {
     return {
         "title": "Home - MyPoll",
-        "description": "MyPoll Homepage/Navigation"
+        "description": "MyPoll Homepage. Navigation"
     }
 }
 
