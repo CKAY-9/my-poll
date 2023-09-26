@@ -107,3 +107,16 @@ button {
 		}
 	}
 }
+
+.poll {
+	background-color: rgb(var(--800));
+	padding: 2rem;
+	border-radius: 2rem;
+	display: grid;
+	gap: 1rem;
+	place-content: center;
+
+	button {
+		background-color: rgb(var(--700));
+	}
+}

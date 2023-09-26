@@ -37,11 +37,18 @@ const PollPage = async ({params}: {
 
     return (
         <>
-            <main className="container">
-                <Link href="/">Home</Link>
-                <h1>{info.title}</h1>     
-                <span>{info.description}</span>
-                <PollClient poll={info}></PollClient> 
+            <main className="container" style={{
+                "alignItems": "center",
+                "justifyContent": "center",
+                "height": "100vh",
+                "margin": "0"
+            }}>
+                <div className="poll">
+                    <Link href="/">Home</Link>
+                    <h1>{info.title}</h1>     
+                    <span>{info.description}</span>
+                    <PollClient poll={info}></PollClient> 
+                </div>
             </main>
         </>
     );
