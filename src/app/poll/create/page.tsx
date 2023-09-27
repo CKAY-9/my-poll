@@ -1,3 +1,4 @@
+import { getUserFromToken } from "@/utils/prisma";
 import CreateClient from "./client";
 import { Metadata } from "next";
 
@@ -9,10 +10,12 @@ export const generateMetadata = async (): Promise<Metadata> => {
 }
 
 const CreatePage = async () => {
+    const user = await getUserFromToken();
+
     return (
         <>
             <main className="container">
-                <CreateClient></CreateClient>
+                <CreateClient user={user}></CreateClient>
             </main>
         </>
     );

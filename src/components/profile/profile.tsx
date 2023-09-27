@@ -1,13 +1,18 @@
+"use client"
+
 import { Profile } from "@/utils/user";
 import style from "./proflile.module.scss";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Poll } from "@prisma/client";
 
 const Profile = (props: {
     user: Profile,
+    polls: Poll[],
     me: boolean
 }) => {
     const oauthType = props.user.oauth_id.split("-")[0].toLowerCase();
-
+    
     return (
         <div className={style.profile}>
             <section className={style.header}>
@@ -25,6 +30,9 @@ const Profile = (props: {
                         <Image className={style.oauth} src="/github-mark-white.svg" alt="GitHub" sizes="100%" width={0} height={0} />
                     }
                 </section>
+            </section>
+            <section>
+                <h2>Created Polls</h2>
             </section>
         </div>
     );

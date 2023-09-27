@@ -47,3 +47,12 @@ export const getUserFromToken = async (token: string = ""): Promise<User | null>
 
     return user;
 }
+
+export const getUserCreatedPolls = async (userID: number) => {
+    const polls = await prisma.poll.findMany({
+        "where": {
+            "owner": userID
+        }
+    });
+    return polls;
+}

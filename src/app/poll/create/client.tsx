@@ -1,11 +1,15 @@
 "use client"
 
 import { LOCAL_URL } from "@/app/api/resources";
+import { getCookie } from "@/utils/cookies";
+import { User } from "@prisma/client";
 import axios from "axios";
 import Link from "next/link";
 import { BaseSyntheticEvent, useState } from "react";
 
-const CreateClient = () => {
+const CreateClient = (props: {
+    user: User | null
+}) => {
     const [title, setTitle] = useState<string>("");
     const [desc, setDesc] = useState<string>("");
     const [options, setOptions] = useState<string[]>([]);
@@ -30,6 +34,9 @@ const CreateClient = () => {
                 "requiresAccount": requiresAccount,
                 "time": timeLimit,
                 "unlisted": unlisted
+            },
+            "headers": {
+                "Authorization": getCookie("token") || ""
             }
         });
 
