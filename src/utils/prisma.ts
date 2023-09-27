@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
+import { cookies } from "next/headers";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
 export const prisma = globalForPrisma.prisma || new PrismaClient()
@@ -22,4 +23,27 @@ export const getAllPublicPolls = async () => {
         } 
     });
     return polls;
+}
+
+export const getToken = (): string | null => {
+    const token = cookies().get("token");
+    return token === undefined ? null : token.value;
+}
+
+export const getUserFromToken = async (token: string = ""): Promise<User | null> => {
+    if (token === "") {
+        const tempToken = getToken();
+        if (tempToken === null) {
+            return null;
+        }
+        token = tempToken;
+    }
+
+    const user = await prisma.user.findFirst({
+        "where": {
+            "token": token || ""
+        }
+    });
+
+    return user;
 }

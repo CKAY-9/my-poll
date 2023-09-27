@@ -9,8 +9,9 @@ datasource db {
 
 model User {
   id            Int      @id @unique @default(autoincrement())
+  oauth_id      String    
   username      String
-  password      String
+  avatar        String
   joined        DateTime @default(now())
   created_polls String[]
   token         String

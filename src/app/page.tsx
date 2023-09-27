@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { getUserFromToken } from "@/utils/prisma";
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return {
@@ -9,6 +10,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
 }
 
 const Home = async () => {
+	const user = await getUserFromToken();
+
 	return (
 		<>
 			<main className="container" style={{
@@ -29,8 +32,15 @@ const Home = async () => {
 				</div>
 				<div className="landing">
 					<h1>Account</h1>
-					<span style={{"opacity": "0.5", "marginBottom": "1rem", "textAlign": "center"}}>Having an account gives you access to more features</span>
-					<Link href="/user/auth">Login</Link>
+					{user === null 
+						? <>
+							<span style={{"opacity": "0.5", "marginBottom": "1rem", "textAlign": "center"}}>Having an account gives you access to more features</span>
+							<Link href="/user/auth">Login</Link>
+						</>
+						: <>
+							<Link href="/user">My Account</Link>
+						</>
+					}
 				</div>
 				<div className="landing">
 					<h1>About</h1>
