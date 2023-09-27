@@ -27,7 +27,7 @@ const AllPollsPage = async () => {
                             const isExpired = poll.close_at.getTime() < date.getTime();
 
                             if (isExpired) {
-                                return (<></>);
+                                return;
                             }
 
                             return (
