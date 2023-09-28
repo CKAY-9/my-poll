@@ -30,12 +30,13 @@ export const POST = async (request: Request) => {
         }
     }
 
-    if (poll.optionVotes[body.voteIndex] === undefined) {
-        poll.optionVotes[body.voteIndex] = 0;
-    } else {
-        poll.optionVotes[body.voteIndex] += 1;
+    for (let i = 0; i < poll.options.length; i++) {
+        if (poll.optionVotes[i] === undefined) {
+            poll.optionVotes[i] = 0;
+        }
     }
-
+    poll.optionVotes[body.voteIndex] += 1;
+    
     const update = await prisma.poll.update({
         "where": {
             "id": poll.id

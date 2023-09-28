@@ -56,3 +56,16 @@ export const getUserCreatedPolls = async (userID: number) => {
     });
     return polls;
 }
+
+export const getAllProfiles = async () => {
+    const users = await prisma.user.findMany({
+        "select": {
+            "avatar": true,
+            "id": true,
+            "created_polls": true,
+            "oauth_id": true,
+            "username": true,
+        }
+    });
+    return users;
+}

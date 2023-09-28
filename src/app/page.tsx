@@ -29,6 +29,13 @@ const Home = async () => {
 						<Link href="/poll/create">Create a poll</Link>
 						<Link href="/poll/all">View public polls</Link>
 					</section>
+					<section style={{
+						"display": "flex",
+						"gap": "1rem",
+						"marginTop": "1rem"
+					}}>
+						<Link href="/user/all">View all users</Link>
+					</section>
 				</div>
 				<div className="landing">
 					<h1>Account</h1>
