@@ -6,6 +6,10 @@ import Image from "next/image";
 import { Poll } from "@prisma/client";
 import PollPreview from "../poll/poll";
 import Link from "next/link";
+import { BaseSyntheticEvent } from "react";
+import axios from "axios";
+import { LOCAL_URL } from "@/app/api/resources";
+import { getCookie } from "@/utils/cookies";
 
 export const ProfilePreview = (props: {
     user: Profile
@@ -41,6 +45,22 @@ const Profile = (props: {
 }) => {
     const oauthType = props.user.oauth_id.split("-")[0].toLowerCase();
 
+    const updateInfo = async (e: BaseSyntheticEvent) => {
+        if (!props.me) return;
+
+        const response = await axios({
+            "url": LOCAL_URL + "/api/user",
+            "method": "PUT",
+            "headers": {
+                "Authorization": getCookie("token") || ""
+            }
+        });
+
+        if (response.status === 200) {
+            window.location.reload();
+        }
+    }
+
     return (
         <div className={style.profile}>
             <section className={style.header}>
@@ -59,6 +79,10 @@ const Profile = (props: {
                     }
                 </section>
                 <span>Joined {props.user.joined.toLocaleDateString()}</span>
+                {props.me && <button onClick={updateInfo} style={{
+                    "backgroundColor": "rgb(var(--accent))",
+                    "color": "white"
+                }}>Update Information</button>}
             </section>
             <section>
                 <h2>Created Polls</h2>

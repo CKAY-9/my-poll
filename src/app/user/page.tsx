@@ -24,7 +24,7 @@ const UserPage = async () => {
         <>
             <main className="container">
                 <Link href="/" style={{"marginBottom": "1rem"}}>Home</Link>
-                <Profile polls={polls} user={user} me={true}></Profile>
+                <Profile polls={polls.reverse()} user={user} me={true}></Profile>
             </main>
         </>
     );

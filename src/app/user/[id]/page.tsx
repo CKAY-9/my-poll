@@ -42,7 +42,7 @@ const ProfilePage = async ({params}: {
     return (
         <>
             <main className="container">
-                <Profile polls={polls} user={profile} me={user?.id === profile.id}></Profile>
+                <Profile polls={polls.reverse()} user={profile} me={user?.id === profile.id}></Profile>
             </main>
         </>
     );

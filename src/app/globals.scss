@@ -7,6 +7,17 @@
 	--text: 255, 255, 255;
 }
 
+@media (prefers-color-scheme: light) {
+	:root {
+		--900: 255, 255, 255;
+		--800: 60, 60, 80;
+		--700: 70, 70, 90;
+		--accent: 0, 100, 200;
+		
+		--text: 0, 0, 0
+	}
+}
+
 * {
 	font-family: "Inter", sans-serif !important;
 }
@@ -32,13 +43,14 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	color: white;
 
 	a {
 		padding: 1rem 2rem;
 		background-color: rgb(var(--accent));
 		border-radius: 2rem;
 		transition: 0.5s ease all;
-		color: rgb(var(--text));
+		color: white;
 		text-decoration: none;
 		text-transform: uppercase;
 		font-weight: 900;
@@ -53,7 +65,7 @@ body {
 
 input, button {
 	background-color: rgb(var(--800));
-	color: rgb(var(--text));
+	color: white;
 	padding: 0.5rem;
 	border: none;
 
@@ -96,11 +108,11 @@ button {
 
 	.poll {
 		background-color: rgb(var(--800));
+		color: white;
 		display: flex;
 		flex-direction: column;
 		padding: 1rem;
 		border-radius: 1rem;
-		color: inherit;
 		
 		&:hover {
 			text-decoration: none;

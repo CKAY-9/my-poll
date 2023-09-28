@@ -16,7 +16,7 @@ const AllPollsPage = async () => {
     const polls = await getAllPublicPolls();
 
     return (
-        <>x
+        <>
             <main className="container">
                 <Link href="/">Home</Link>
                 <h1>Public Polls</h1>

@@ -8,8 +8,8 @@ import AllUsersClient from "./client"
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return {
-        "title": "My Account - MyPoll",
-        "description": "MyPoll Account Page"
+        "title": "All Users - MyPoll",
+        "description": "Search all registered users on MyPoll."
     }
 }
 
