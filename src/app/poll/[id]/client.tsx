@@ -1,16 +1,18 @@
 "use client"
 
 import { BaseSyntheticEvent, useEffect, useState } from "react";
-import { Poll } from "@prisma/client";
+import { Poll, User } from "@prisma/client";
 import style from "./poll.module.scss";
 import axios from "axios";
 import { LOCAL_URL } from "@/app/api/resources";
 import { getCookie } from "@/utils/cookies";
 import { getTotalVoteCount } from "@/utils/poll";
+import Link from "next/link";
 
 const PollClient = (props: {
     poll: Poll,
-    expired: boolean
+    expired: boolean,
+    user: User | null
 }) => {
     const [opts, setOpts] = useState<string[]>(props.poll.options);
     const [optVotes, setOptVotes] = useState<number[]>(props.poll.optionVotes);
@@ -22,6 +24,8 @@ const PollClient = (props: {
             setVoted(true);
         }
     }, [props.expired]);
+
+    const accReq = props.user === null && props.poll.requires_account;
 
     const vote = async (e: BaseSyntheticEvent, i: number) => {
         e.preventDefault();
@@ -46,12 +50,13 @@ const PollClient = (props: {
 
     return (
         <>
+            {accReq && <Link href="/user/auth">This poll requires you to be logged in!</Link>}
             {opts.map((opt: string, index: number) => {
                 return (
                     <div key={index} className={style.option}>
                         <button disabled={voted || props.expired} onClick={async (e) => await vote(e, index)} style={{
-                            "opacity": (voted || props.expired) ? "0.5" : "1",
-                            "cursor": (voted || props.expired) ? "not-allowed" : "pointer"
+                            "opacity": (voted || props.expired || accReq) ? "0.5" : "1",
+                            "cursor": (voted || props.expired || accReq) ? "not-allowed" : "pointer"
                         }}>{opt}</button>
                         {voted && 
                             <div>
@@ -80,11 +85,12 @@ const PollClient = (props: {
                 )
             })}
             {!props.expired &&
-                <button style={{
+                <button disabled={voted} style={{
                     "backgroundColor": "transparent",
-                    "padding": "1rem"
+                    "padding": "1rem",
+                    "opacity": voted ? "0" : "1",
                 }} onClick={() => {
-                    setVoted(!voted);
+                    setVoted(true);
                 }}>Show results</button>
             }
         </>

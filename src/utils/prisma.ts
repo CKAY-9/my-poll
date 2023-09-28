@@ -57,15 +57,33 @@ export const getUserCreatedPolls = async (userID: number) => {
     return polls;
 }
 
-export const getAllProfiles = async () => {
-    const users = await prisma.user.findMany({
+export const getUserProfile = async (userID: number) => {
+    const profile = await prisma.user.findUnique({
         "select": {
             "avatar": true,
             "id": true,
             "created_polls": true,
             "oauth_id": true,
             "username": true,
+            "joined": true
+        },
+        "where": {
+            "id": userID
         }
     });
-    return users;
+    return profile;
+}
+
+export const getAllProfiles = async () => {
+    const profiles = await prisma.user.findMany({
+        "select": {
+            "avatar": true,
+            "id": true,
+            "created_polls": true,
+            "oauth_id": true,
+            "username": true,
+            "joined": true
+        }
+    });
+    return profiles;
 }

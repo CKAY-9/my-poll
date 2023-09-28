@@ -1,4 +1,4 @@
-import { getPollInformation } from "@/utils/prisma";
+import { getPollInformation, getUserFromToken } from "@/utils/prisma";
 import { redirect } from "next/navigation";
 import PollClient from "./client";
 import Link from "next/link";
@@ -36,6 +36,8 @@ const PollPage = async ({params}: {
         redirect("/");
     }
 
+    const user = await getUserFromToken();
+
     const isExpired = info.close_at.getTime() < new Date().getTime();
 
     return (
@@ -51,7 +53,7 @@ const PollPage = async ({params}: {
                     {isExpired && <span style={{"textTransform": "uppercase", "fontWeight": "900"}}>This poll has expired!</span>}
                     <h1>{info.title}</h1>     
                     <span>{info.description}</span>
-                    <PollClient poll={info} expired={isExpired}></PollClient> 
+                    <PollClient user={user} poll={info} expired={isExpired}></PollClient> 
                 </div>
             </main>
         </>

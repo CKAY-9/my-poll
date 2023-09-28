@@ -58,6 +58,7 @@ const Profile = (props: {
                         <Image className={style.oauth} src="/github-mark-white.svg" alt="GitHub" sizes="100%" width={0} height={0} />
                     }
                 </section>
+                <span>Joined {props.user.joined.toLocaleDateString()}</span>
             </section>
             <section>
                 <h2>Created Polls</h2>

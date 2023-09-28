@@ -5,5 +5,6 @@ export interface Profile {
     avatar: string,
     oauth_id: string,
     id: number,
-    created_polls: string[]
+    created_polls: string[],
+    joined: Date
 }

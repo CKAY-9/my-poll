@@ -23,7 +23,7 @@ const UserPage = async () => {
     return (
         <>
             <main className="container">
-                <Link href="/">Home</Link>
+                <Link href="/" style={{"marginBottom": "1rem"}}>Home</Link>
                 <Profile polls={polls} user={user} me={true}></Profile>
             </main>
         </>

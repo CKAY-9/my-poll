@@ -4,6 +4,7 @@ import { Profile } from "@/utils/user"
 import { Metadata } from "next"
 import Link from "next/link"
 import style from "./all.module.scss";
+import AllUsersClient from "./client"
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return {
@@ -20,13 +21,7 @@ const AllUsers = async () => {
             <main className="container">
                 <Link href="/">Home</Link>
                 <h1>All Users</h1>
-                <div className={style.previews}>
-                    {profiles.map((profile: Profile, index: number) => {
-                        return (
-                            <ProfilePreview user={profile} key={index}></ProfilePreview>
-                        );
-                    })}
-                </div>
+                <AllUsersClient profiles={profiles}></AllUsersClient>
             </main>
         </>
     )
