@@ -9,7 +9,7 @@ import Link from "next/link";
 import { BaseSyntheticEvent } from "react";
 import axios from "axios";
 import { LOCAL_URL } from "@/app/api/resources";
-import { getCookie } from "@/utils/cookies";
+import { eraseCookie, getCookie } from "@/utils/cookies";
 
 export const ProfilePreview = (props: {
     user: Profile
@@ -46,6 +46,7 @@ const Profile = (props: {
     const oauthType = props.user.oauth_id.split("-")[0].toLowerCase();
 
     const updateInfo = async (e: BaseSyntheticEvent) => {
+        e.preventDefault();
         if (!props.me) return;
 
         const response = await axios({
@@ -59,6 +60,12 @@ const Profile = (props: {
         if (response.status === 200) {
             window.location.reload();
         }
+    }
+
+    const logout = (e: BaseSyntheticEvent) => {
+        e.preventDefault();
+        eraseCookie("token");
+        window.location.href = "/user/auth";
     }
 
     return (
@@ -78,11 +85,22 @@ const Profile = (props: {
                         <Image className={style.oauth} src="/github-mark-white.svg" alt="GitHub" sizes="100%" width={0} height={0} />
                     }
                 </section>
-                <span>Joined {props.user.joined.toLocaleDateString()}</span>
-                {props.me && <button onClick={updateInfo} style={{
-                    "backgroundColor": "rgb(var(--accent))",
-                    "color": "white"
-                }}>Update Information</button>}
+                <span>Joined {props.user.joined.toDateString()}</span>
+                {props.me && 
+                    <section style={{
+                        "display": "flex",
+                        "alignItems": "center",
+                        "gap": "1rem"
+                    }}>                  
+                        <button onClick={updateInfo} style={{
+                            "backgroundColor": "rgb(var(--accent))",
+                            "color": "white"
+                        }}>Update Information</button>
+                        <button onClick={logout} style={{
+                            "backgroundColor": "rgb(var(--accent))",
+                            "color": "white"
+                        }}>Logout</button>
+                    </section>}
             </section>
             <section>
                 <h2>Created Polls</h2>

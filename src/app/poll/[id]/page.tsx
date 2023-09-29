@@ -4,6 +4,7 @@ import PollClient from "./client";
 import Link from "next/link";
 import { Metadata } from "next";
 import style from "./poll.module.scss";
+import Header from "@/components/header/header";
 
 export const generateMetadata = async ({params}: {
     params: {
@@ -37,7 +38,6 @@ const PollPage = async ({params}: {
     }
 
     const user = await getUserFromToken();
-
     const isExpired = info.close_at.getTime() < new Date().getTime();
 
     return (
@@ -48,7 +48,7 @@ const PollPage = async ({params}: {
                 "height": "100vh",
                 "margin": "0",
             }}>
-                <Link href="/">Home</Link>
+                <Header user={user}></Header>
                 <div className={style.poll}>
                     {isExpired && <span style={{"textTransform": "uppercase", "fontWeight": "900"}}>This poll has expired!</span>}
                     <h1>{info.title}</h1>     

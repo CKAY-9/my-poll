@@ -23,6 +23,9 @@ export const GET = async (request: Request) => {
                 "client_id": GITHUB_ID,
                 "client_secret": GITHUB_KEY,
                 "code": code
+            },
+            "headers": {
+                "Accept": "application/vnd.github+json"
             }
         });
     } catch (ex: any) {
@@ -35,8 +38,8 @@ export const GET = async (request: Request) => {
         userResponse = await axios({
             "url": GITHUB_API + "/user",
             "method": "GET",
-            "params": {
-                "access_token": initialResponse.data.access_token
+            "headers": {
+                "Authorization": `${initialResponse.data.token_type} ${initialResponse.data.access_token}`
             }
         });
     } catch (ex: any) {

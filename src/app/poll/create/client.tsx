@@ -47,7 +47,6 @@ const CreateClient = (props: {
 
     return (
         <>
-            <Link href="/">Home</Link>
             <h1>Create a new poll</h1>
             <label htmlFor="title">Poll Title</label>
             <input onChange={(e: BaseSyntheticEvent) => setTitle(e.target.value)} type="text" placeholder="Title (80 characters max)" maxLength={80} />

@@ -1,6 +1,7 @@
+import Header from "@/components/header/header";
 import PollPreview from "@/components/poll/poll";
 import { getTotalVoteCount } from "@/utils/poll";
-import { getAllPublicPolls } from "@/utils/prisma";
+import { getAllPublicPolls, getUserFromToken } from "@/utils/prisma";
 import { Poll } from "@prisma/client";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -14,11 +15,12 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 const AllPollsPage = async () => {
     const polls = await getAllPublicPolls();
+    const user = await getUserFromToken();
 
     return (
         <>
             <main className="container">
-                <Link href="/">Home</Link>
+                <Header user={user}></Header>
                 <h1>Public Polls</h1>
                 {polls.length <= 0 
                     ? <span>There are no public polls currently available! <Link href="/poll/create">Create one</Link></span>

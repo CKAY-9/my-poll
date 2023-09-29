@@ -1,3 +1,4 @@
+import Header from "@/components/header/header";
 import Profile from "@/components/profile/profile";
 import { getUserCreatedPolls, getUserFromToken } from "@/utils/prisma";
 import { Metadata } from "next";
@@ -23,7 +24,7 @@ const UserPage = async () => {
     return (
         <>
             <main className="container">
-                <Link href="/" style={{"marginBottom": "1rem"}}>Home</Link>
+                <Header user={user}></Header>
                 <Profile polls={polls.reverse()} user={user} me={true}></Profile>
             </main>
         </>

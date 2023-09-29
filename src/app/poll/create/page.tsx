@@ -1,6 +1,7 @@
 import { getUserFromToken } from "@/utils/prisma";
 import CreateClient from "./client";
 import { Metadata } from "next";
+import Header from "@/components/header/header";
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return {
@@ -15,6 +16,7 @@ const CreatePage = async () => {
     return (
         <>
             <main className="container">
+                <Header user={user}></Header>
                 <CreateClient user={user}></CreateClient>
             </main>
         </>

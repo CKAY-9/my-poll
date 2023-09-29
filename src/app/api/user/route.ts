@@ -1,8 +1,9 @@
-import { getUserFromToken } from "@/utils/prisma";
-import axios from "axios";
+import { getUserFromToken, prisma } from "@/utils/prisma";
+import axios, { AxiosResponse } from "axios";
 import { NextResponse } from "next/server";
-import { DISCORD_API } from "../resources";
-import { DISCORD_KEY } from "@/utils/oauth";
+import { DISCORD_API, GITHUB_API } from "../resources";
+import { DISCORD_KEY, GITHUB_KEY } from "@/utils/oauth";
+import { GithubUserDTO } from "./auth/dto";
 
 export const PUT = async (request: Request) => {
     const token = request.headers.get("Authorization");
@@ -25,11 +26,33 @@ export const PUT = async (request: Request) => {
                 "url": DISCORD_API + "/users/" + oauthID,
                 "method": "GET",
                 "headers": {
-                    "Authorization": `Bot ${DISCORD_KEY}`
+                    "Authorization": `${DISCORD_KEY}`
                 }
             });
         } else {
-    
+            const gResponse: AxiosResponse<GithubUserDTO[]> = await axios({
+                "url": GITHUB_API + "/users",
+                "method": "GET",
+                "headers": {
+                    "Authorization": GITHUB_KEY
+                },
+                "params": {
+                    "since": Number.parseInt(oauthID) - 1, // since starts after the specified ID
+                    "per_page": 1
+                }
+            });
+            if (gResponse.data.length <= 0) {
+                return NextResponse.json({"message": "Failed to get GitHub user"}, {"status": 404});
+            }
+            const gUpdate =await prisma.user.update({
+                "where": {
+                    "id": user.id
+                },
+                "data": {
+                    "avatar": gResponse.data[0].avatar_url,
+                    "username": gResponse.data[0].login
+                }
+            });
         }
     } catch (ex: any) {
         console.log(ex.toString());
