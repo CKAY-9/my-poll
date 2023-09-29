@@ -103,7 +103,9 @@ const Profile = (props: {
                     </section>}
             </section>
             <section>
-                <h2>Created Polls</h2>
+                <h2 style={{
+                    "mixBlendMode": "difference"
+                }}>Created Polls</h2>
                 {props.polls.filter((v) => !v.unlisted).length <= 0 && <span>This user doesn&apos;t have any polls</span>}
                 <div className="polls">
                     {props.polls.filter((v) => !v.unlisted).map((poll: Poll, index: number) => {
