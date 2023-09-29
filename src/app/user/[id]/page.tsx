@@ -30,7 +30,7 @@ const ProfilePage = async ({params}: {
             <>
                 <main className="container">
                     <Link href="/">Home</Link>
-                    <h1>This user doesn't exist!</h1>
+                    <h1>This user doesn&apos;t exist!</h1>
                 </main>
             </>
         )
