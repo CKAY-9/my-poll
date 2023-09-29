@@ -1,5 +1,6 @@
 // Discord
 export const DISCORD_KEY = process.env.POLL_DISCORD_KEY;
+export const DISCORD_BOT_KEY = process.env.POLL_DISCORD_BOT_KEY;
 export const DISCORD_ID = process.env.NEXT_PUBLIC_POLL_DISCORD_ID;
 export const DISCORD_OAUTH = process.env.NEXT_PUBLIC_POLL_DISCORD_OAUTH;
 
