@@ -95,7 +95,7 @@ const Profile = (props: {
                         <button onClick={updateInfo} style={{
                             "backgroundColor": "rgb(var(--accent))",
                             "color": "white"
-                        }}>Update Information</button>
+                        }}>Sync Information</button>
                         <button onClick={logout} style={{
                             "backgroundColor": "rgb(var(--accent))",
                             "color": "white"

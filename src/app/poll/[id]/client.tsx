@@ -8,6 +8,8 @@ import { LOCAL_URL } from "@/app/api/resources";
 import { getCookie } from "@/utils/cookies";
 import { getTotalVoteCount } from "@/utils/poll";
 import Link from "next/link";
+import { Profile } from "@/utils/user";
+import Image from "next/image";
 
 const PollClient = (props: {
     poll: Poll,
@@ -18,11 +20,24 @@ const PollClient = (props: {
     const [optVotes, setOptVotes] = useState<number[]>(props.poll.optionVotes);
     const [voted, setVoted] = useState<boolean>(false);
     const [indexVoted, setIndexVoted] = useState<number>(0);
+    const [creator, setCreator] = useState<Profile | null>(null);
 
     useEffect(() => {
         if (props.expired) {
             setVoted(true);
         }
+        (async () => {
+            if (props.poll.owner !== null) {
+                const creatorRequest = await axios({
+                    "url": LOCAL_URL + "/api/user/profile",
+                    "method": "GET",
+                    "params": {
+                        "userID": props.poll.owner
+                    }
+                });
+                setCreator(creatorRequest.data.profile);
+            }
+        })();
     }, [props.expired]);
 
     const accReq = props.user === null && props.poll.requires_account;
@@ -50,6 +65,32 @@ const PollClient = (props: {
 
     return (
         <>
+            {props.poll.owner !== null &&
+                <>
+                    {creator === null 
+                        ? <span>Loading profile...</span>
+                        : <div style={{
+                            "display": "flex",
+                            "alignItems": "center",
+                            "gap": "0.5rem"
+                        }}>
+                            <span>Created by</span>
+                            <Link href={`/user/${creator.id}`} style={{
+                                "display": "flex",
+                                "alignItems": "center",
+                                "gap": "0.5rem"
+                            }}>
+                                <Image src={creator.avatar} alt="PFP" sizes="100%" width={0} height={0} style={{
+                                    "width": "2rem",
+                                    "height": "2rem",
+                                    "borderRadius": "50%"
+                                }} />
+                                <span>{creator.username}</span>
+                            </Link>    
+                        </div>
+                    }
+                </>
+            }
             {accReq && <Link href="/user/auth">This poll requires you to be logged in!</Link>}
             {opts.map((opt: string, index: number) => {
                 return (

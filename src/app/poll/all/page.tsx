@@ -1,6 +1,5 @@
 import Header from "@/components/header/header";
 import PollPreview from "@/components/poll/poll";
-import { getTotalVoteCount } from "@/utils/poll";
 import { getAllPublicPolls, getUserFromToken } from "@/utils/prisma";
 import { Poll } from "@prisma/client";
 import { Metadata } from "next";
@@ -22,6 +21,7 @@ const AllPollsPage = async () => {
             <main className="container">
                 <Header user={user}></Header>
                 <h1>Public Polls</h1>
+                <Link href="/poll/create">Create a poll</Link>
                 {polls.length <= 0 
                     ? <span>There are no public polls currently available! <Link href="/poll/create">Create one</Link></span>
                     : <div className="polls">
