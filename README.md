@@ -1,4 +1,6 @@
 # my-poll
+Create polls and vote on them. MyPoll uses NextJS and Prisma (postgresql). It supports
+authentication with Discord and GitHub OAuth2.
 
 ## Showcase
 
